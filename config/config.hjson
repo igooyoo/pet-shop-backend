@@ -1,0 +1,21 @@
+{
+  multi_instance_mode: false
+  hostname: "localhost:8536"
+  captcha: {
+    enabled: true
+    difficulty: easy # Can be easy, medium, or hard
+  }
+#  # email sending configuration
+#  email: {
+#    # hostname and port of the smtp server
+#    smtp_server: ""
+#    # login name for smtp server
+#    smtp_login: ""
+#    # password to login to the smtp server
+#    smtp_password: ""
+#    # address to send emails from, eg "noreply@your-instance.com"
+#    smtp_from_address: ""
+#    # whether or not smtp connections should use tls
+#    use_tls: true
+#  }
+}

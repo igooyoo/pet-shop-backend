@@ -1,0 +1,28 @@
+services:
+  postgres-db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=FBF6LT7yPSWbZnm3
+      - POSTGRES_DB=classroom
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      #- ./data:/var/lib/postgresql/data:rw # local path
+      - hischool-db:/var/lib/postgresql/data:rw # shared volume
+    ports:
+      - 5432
+  classroom-api:
+    image: ghcr.io/hischool/classroom-api:nightly
+    environment:
+      - classroom_DATABASE_URL=postgres://postgres:FBF6LT7yPSWbZnm3@postgres-db:5432/classroom
+      - DATABASE_URL=postgres://postgres:FBF6LT7yPSWbZnm3@postgres-db:5432/classroom
+    ports:
+      - 8536
+  web:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8536:80"
+    command: [ nginx-debug, '-g', 'daemon off;' ]
+volumes:
+  hischool-db: #external: true # use before created external volume
